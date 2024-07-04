@@ -1,2 +1,7 @@
 # Ignore node_modules directory (Node.js dependencies)
 node_modules/
+
+# ignore reports folder
+cypress/reports/
+# Ignore mochawesome report
+mochawesome-report/
