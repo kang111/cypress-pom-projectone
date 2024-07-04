@@ -1,18 +1,20 @@
 import LoginPage from "../../pageObjects/LoginPage";
+import Utilties from "../../utilities/Utilties";
 
 describe("Login Page UI Tests", ()=>{
     beforeEach( ()=>{
         cy.visit(Cypress.env('loginpage_url'));
     })
 
-    it("should login succesfully and display account page", ()=>{
+    it.only("should login succesfully and display account page", ()=>{
         LoginPage.typeUserName(Cypress.env('USERNAME'));
         LoginPage.typePassword(Cypress.env('PASSWORD'));
         LoginPage.clickLogin();
         LoginPage.elements.pageUrl().should('eq', Cypress.env('accountpage_url'));
     });
     it("should display an error message when wrong password is entered", ()=>{
-        LoginPage.typeUserName(Cypress.env('USERNAME'));
+        //LoginPage.typeUserName(Cypress.env('USERNAME'));
+        LoginPage.typeUserName(Cypress.env(Utilties.newEmail()));
         LoginPage.typePassword(Cypress.env('WRONG_PASSWORD'));
         LoginPage.clickLogin();
         LoginPage.elements.invalidCredentialsErr().should('have.text', ' Warning: No match for E-Mail Address and/or Password.');

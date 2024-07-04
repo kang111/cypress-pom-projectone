@@ -1,12 +1,13 @@
 import RegisterPage from "../../pageObjects/RegisterPage";
+import Utilties from "../../utilities/Utilties";
 
-describe("Login Page UI Tests", () => {
+describe("Registration Flow Tests", () => {
   beforeEach(() => {
     cy.visit(Cypress.env("registration_url"));
   });
 
-  it.only("Should successfully register with Newsletter option", () => {
-    RegisterPage.fillFormDetails("simtest", "person", RegisterPage.newEmail(), "6471231234", "test1234", "test1234");
+  it("Should successfully register with Newsletter option", () => {
+    RegisterPage.fillFormDetails("simtest", "person", Utilties.newEmail(), "6471231234", "test1234", "test1234");
     RegisterPage.subcribeNewsletterAndContinue();
     RegisterPage.elements.pageUrl().should("eq", Cypress.env("register_success_url"));
     RegisterPage.elements.accountSuccessHeading().should(
@@ -15,7 +16,7 @@ describe("Login Page UI Tests", () => {
     );
   });
   it("Should successfully register without Newsletter option", () => {
-    RegisterPage.fillFormDetails("simtest", "person", RegisterPage.newEmail(), "6471231234", "test1234", "test1234");
+    RegisterPage.fillFormDetails("simtest", "person", Utilties.newEmail(), "6471231234", "test1234", "test1234");
     RegisterPage.unsubcribeNewsletterAndContinue();
     RegisterPage.elements.pageUrl().should("eq", Cypress.env("register_success_url"));
     RegisterPage.elements.accountSuccessHeading().should(
@@ -23,8 +24,8 @@ describe("Login Page UI Tests", () => {
       " Your Account Has Been Created!"
     );
   });
-  it("Should not register on entering mismatched passwords", ()=>{
-    RegisterPage.fillFormDetails("simtest", "person", RegisterPage.newEmail(), "6471231234", "test1234", "test1235");
+  it.only("Should not register on entering mismatched passwords", ()=>{
+    RegisterPage.fillFormDetails("simtest", "person", Utilties.newEmail(), "6471231234", "test1234", "test1235");
     RegisterPage.subcribeNewsletterAndContinue();
     RegisterPage.elements.mismatchPasswordMssg().should('have.text', 'Password confirmation does not match password!');
   });
@@ -38,7 +39,7 @@ describe("Login Page UI Tests", () => {
 
   });
   it("Should display the correct error message on not agreeing to privacy policy", ()=>{
-    RegisterPage.fillFormDetails("simtest", "person", RegisterPage.newEmail(), "6471231234", "test1234", "test1234");
+    RegisterPage.fillFormDetails("simtest", "person", Utilties.newEmail(), "6471231234", "test1234", "test1234");
     RegisterPage.clickContinue();
     RegisterPage.elements.privacyPolicyErr().should('have.text', ' Warning: You must agree to the Privacy Policy!');
   })
