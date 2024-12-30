@@ -5,3 +5,8 @@ node_modules/
 cypress/reports/
 # Ignore mochawesome report
 mochawesome-report/
+# DS store file
+.DS_Store
+cypress/.DS_Store
+.DS_Store
+cypress/.DS_Store
